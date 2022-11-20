@@ -1,0 +1,42 @@
+# PostgreSQL. Versions 9.3 and up are supported.
+#
+# Windows:
+#   gem install pg
+#       Choose the win32 build.
+#       Install PostgreSQL and put its /bin directory on your path.
+#
+# Configure Using Gemfile
+# gem "pg"
+#
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: railMarket_development
+  username: postgres
+  # The password associated with the postgres role (username).
+  password: cosmin
+  host: localhost
+  port: 5432
+  schema_search_path: myapp,sharedapp,public
+  min_messages: notice
+
+test:
+  <<: *default
+  database: railMarket_test
+#   DATABASE_URL="postgres://myuser:mypass@localhost/somedatabase"
+#
+#   production:
+#     url: <%= ENV["MY_APP_DATABASE_URL"] %>
+#
+# Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
+# for a full overview on how database connection configuration can be specified.
+#
+production:
+  <<: *default
+  database: railMarket_production
+  username: postgres
+  password: <%= ENV["RAILMARKET_DATABASE_PASSWORD"] %>
